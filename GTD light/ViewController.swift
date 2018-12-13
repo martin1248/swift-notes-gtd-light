@@ -19,14 +19,25 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.title = "GTD light"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-            self.navigationItem.rightBarButtonItem = addButton
+        self.navigationItem.rightBarButtonItem = addButton
+        self.navigationItem.leftBarButtonItem = editButtonItem
     }
 
     @objc func addNote() {
+        if (table.isEditing) {
+            return
+        }
         let name:String = "Item \(data.count + 1)"
         data.insert(name, at: 0)
         let indexPath:IndexPath = IndexPath(row: 0, section: 0)
         table.insertRows(at: [indexPath], with: .automatic)
+    }
+
+// MARK : UIViewController
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        table.setEditing(editing, animated: animated)
     }
 
 // MARK: UITableViewDataSource
@@ -41,5 +52,9 @@ class ViewController: UIViewController, UITableViewDataSource {
         return cell
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        data.remove(at: indexPath.row)
+        table.deleteRows(at: [indexPath], with: .fade)
+    }
 }
 
