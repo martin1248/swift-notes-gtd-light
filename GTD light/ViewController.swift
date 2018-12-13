@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  GTD light
 //
-//  Created by martinhuch on 13.12.18.
+//  Created by martin1248 on 13.12.18.
 //  Copyright © 2018 martin1248. All rights reserved.
 //
 
@@ -13,7 +13,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var data:[String] = []
     var fileURL:URL!
     var selectedRow:Int = -1
-    
+    var newRowText:String = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -35,7 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (table.isEditing) {
             return
         }
-        let name:String = "Item \(data.count + 1)"
+        let name:String = ""
         data.insert(name, at: 0)
         let indexPath:IndexPath = IndexPath(row: 0, section: 0)
         table.insertRows(at: [indexPath], with: .automatic)
@@ -59,7 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
 
-// MARK : UIViewController
+// MARK: - UIViewController
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -69,10 +70,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let detailView:DetailViewController = segue.destination as! DetailViewController
         selectedRow = table.indexPathForSelectedRow!.row
+        detailView.masterView = self
         detailView.setText(t: data[selectedRow])
     }
 
-// MARK: UITableViewDataSource
+    // this method is triggered after transition back from detail view controller
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if selectedRow == -1 {
+            return
+        }
+        data[selectedRow] = newRowText
+        if newRowText == "" {
+            data.remove(at: selectedRow)
+        }
+        table.reloadData()
+        save()
+    }
+
+// MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
@@ -90,7 +106,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         save()
     }
 
-// MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "detail", sender: nil)

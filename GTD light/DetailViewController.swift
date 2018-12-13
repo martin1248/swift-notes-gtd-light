@@ -2,7 +2,7 @@
 //  DetailViewController.swift
 //  GTD light
 //
-//  Created by martinhuch on 13.12.18.
+//  Created by martin1248 on 13.12.18.
 //  Copyright © 2018 martin1248. All rights reserved.
 //
 
@@ -11,6 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     var text:String = ""
+    var masterView:ViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,13 @@ class DetailViewController: UIViewController {
         if isViewLoaded {
             textView.text = t
         }
+    }
+
+// MARK: - UIViewController
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        masterView.newRowText = textView.text
     }
 
     /*

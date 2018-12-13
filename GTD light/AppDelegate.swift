@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  GTD light
 //
-//  Created by martinhuch on 13.12.18.
+//  Created by martin1248 on 13.12.18.
 //  Copyright © 2018 martin1248. All rights reserved.
 //
 
