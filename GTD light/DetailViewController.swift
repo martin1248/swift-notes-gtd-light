@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         textView.text = text
+        self.navigationItem.largeTitleDisplayMode = .never
     }
 
     func setText(t:String) {
