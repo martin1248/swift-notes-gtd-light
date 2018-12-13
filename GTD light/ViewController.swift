@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var table: UITableView!
     var data:[String] = []
     var fileURL:URL!
@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         table.dataSource = self
+        table.delegate = self
         self.title = "GTD light"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
@@ -79,6 +80,12 @@ class ViewController: UIViewController, UITableViewDataSource {
         data.remove(at: indexPath.row)
         table.deleteRows(at: [indexPath], with: .fade)
         save()
+    }
+
+// MARK: UITableViewDelegate
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(data[indexPath.row])")
     }
 }
 
