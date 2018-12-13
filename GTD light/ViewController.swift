@@ -18,6 +18,15 @@ class ViewController: UIViewController, UITableViewDataSource {
         table.dataSource = self
         self.title = "GTD light"
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+            self.navigationItem.rightBarButtonItem = addButton
+    }
+
+    @objc func addNote() {
+        let name:String = "Item \(data.count + 1)"
+        data.insert(name, at: 0)
+        let indexPath:IndexPath = IndexPath(row: 0, section: 0)
+        table.insertRows(at: [indexPath], with: .automatic)
     }
 
 // MARK: UITableViewDataSource
