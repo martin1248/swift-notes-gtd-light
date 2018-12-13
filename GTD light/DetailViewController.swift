@@ -29,9 +29,19 @@ class DetailViewController: UIViewController {
 
 // MARK: - UIViewController
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // First responder = object currently receiving events
+        // calling this on a textfield/textview automatically brings up the keyboard
+        // Note: Do not forget Simulator > Hardware > Keyboard > Toogle ...
+        textView.becomeFirstResponder()
+
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         masterView.newRowText = textView.text
+        textView.resignFirstResponder()
     }
 
     /*
