@@ -55,7 +55,7 @@
         <!--Note-->
         <scene sceneID="csS-He-5k4">
             <objects>
-                <viewController title="Note" id="ujx-77-bEE" sceneMemberID="viewController">
+                <viewController title="Note" id="ujx-77-bEE" customClass="DetailViewController" customModule="GTD_light" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yez-ld-gMp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,6 +77,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qlJ-m6-Ym1"/>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="0fJ-0Q-xTS" id="fpp-Mo-vfX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UST-V0-Hhv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
